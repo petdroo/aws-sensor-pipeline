@@ -1,0 +1,4 @@
+record_id,timestamp_str,sensor_type,raw_value,location
+rec-001,2026-10-10T12:00:00Z,temperature,21.8,warehouse-a
+rec-002,2026-10-10T12:00:05Z,pressure,1012.8,warehouse-a
+rec-003,2026-10-10T12:00:10Z,vibration,0.051,pump-1

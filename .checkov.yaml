@@ -1,0 +1,28 @@
+framework:
+  - terraform
+compact: true
+quiet: true
+skip-check:
+  - CKV_AWS_157  # RDS Multi-AZ : désactivé pour la démo (coût)
+  - CKV_AWS_118  # RDS enhanced monitoring : hors périmètre démo
+  - CKV_AWS_293  # RDS deletion protection : incompatible avec le destroy après démo
+  - CKV_AWS_129  # RDS log exports : hors périmètre démo
+  - CKV_AWS_353  # RDS performance insights : hors périmètre démo
+  - CKV2_AWS_30  # RDS query logging : hors périmètre démo
+  - CKV_AWS_18   # S3 access logging : hors périmètre démo
+  - CKV_AWS_21   # S3 versioning : données de démo jetables
+  - CKV_AWS_144  # S3 réplication inter-régions : inutile ici
+  - CKV_AWS_145  # S3 KMS CMK : SSE-S3 suffisant pour la démo
+  - CKV2_AWS_61  # S3 lifecycle : bucket jetable
+  - CKV_AWS_158  # Log group KMS : hors périmètre démo
+  - CKV_AWS_338  # Rétention des logs 1 an : 7 jours pour limiter les coûts
+  - CKV_AWS_115  # Lambda reserved concurrency : hors périmètre démo
+  - CKV_AWS_116  # Lambda DLQ : la DLQ est gérée par SQS (redrive policy)
+  - CKV_AWS_173  # Lambda env vars KMS : hors périmètre démo
+  - CKV_AWS_272  # Lambda code signing : hors périmètre démo
+  - CKV_AWS_50   # X-Ray : hors périmètre démo
+  - CKV2_AWS_11  # VPC flow logs : hors périmètre démo
+  - CKV2_AWS_12  # Default security group : non utilisé
+  - CKV_AWS_382  # Egress Lambda ouvert : VPC sans route internet, S3 via endpoint
+  - CKV_AWS_394  # Zones de disponibilité dynamiques : sans impact pour une démo
+  - CKV_AWS_26   # SNS KMS : à ma connaissance, une clé AWS-managed bloque les alarmes CloudWatch

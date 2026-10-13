@@ -1,0 +1,13 @@
+.terraform/
+*.tfstate*
+*.tfstate
+*.tfvars
+.env
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.venv/
+build/
+dist/
+*.zip
