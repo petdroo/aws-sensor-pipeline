@@ -172,3 +172,37 @@ resource "aws_lambda_event_source_mapping" "sqs_trigger" {
     aws_iam_role_policy_attachment.lambda_vpc
   ]
 }
+# Lambda 3 : consultation en lecture seule de la table (vérification des données)
+resource "aws_lambda_function" "query" {
+  function_name    = "${var.project_name}-query"
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  handler          = "src.db_query.lambda_handler"
+  runtime          = "python3.12"
+  timeout          = 30
+  memory_size      = 256
+  role             = aws_iam_role.lambda_handler.arn
+
+  vpc_config {
+    subnet_ids         = [aws_subnet.private_a.id, aws_subnet.private_b.id]
+    security_group_ids = [aws_security_group.lambda.id]
+  }
+
+  environment {
+    variables = {
+      DB_HOST = aws_db_instance.postgres.address
+      DB_NAME = aws_db_instance.postgres.db_name
+      DB_USER = "lambda_user"
+      DB_PORT = "5432"
+    }
+  }
+
+  tags = {
+    Name = "${var.project_name}-query"
+  }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.lambda_vpc,
+    aws_iam_role_policy_attachment.lambda_custom
+  ]
+}

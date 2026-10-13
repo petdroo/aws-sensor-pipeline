@@ -32,3 +32,8 @@ output "sns_topic_arn" {
   value       = aws_sns_topic.alerts.arn
   description = "ARN du topic SNS des alertes d'anomalies"
 }
+
+output "lambda_query_name" {
+  value       = aws_lambda_function.query.function_name
+  description = "Nom de la fonction Lambda de consultation des données"
+}
